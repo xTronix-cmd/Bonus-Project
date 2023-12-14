@@ -52,7 +52,7 @@ class Menu {
                 break;
             }
         }
-        inline int welcome() { // modify this!
+        int welcome() { // modify this!
             std::cout << std::endl;
             std::cout << fmt::format("\n{:^63}\n", "Welcome to Marty's Produce Market") << std::endl;
             std::cout << fmt::format("1) Shop") << std::endl;
@@ -63,7 +63,7 @@ class Menu {
             askForInput<int>(choice, ": ");
             return choice;
         }
-        inline int viewShopMenu() {
+        int viewShopMenu() {
             std::cout << std::endl << std::endl;
             std::cout << fmt::format("1) View Products") << std::endl;
             std::cout << fmt::format("2) View Cart") << std::endl;
@@ -73,7 +73,7 @@ class Menu {
             askForInput<int>(choice, ": ");
             return choice;
         }
-        inline int viewSubMenu(const std::string &view) {
+        int viewSubMenu(const std::string &view) {
             std::cout << std::endl;
             std::cout << "1) " << view << std::endl;
             std::cout << "2) Add/Remove Order" << std::endl << std::endl;
@@ -82,124 +82,73 @@ class Menu {
             askForInput<int>(choice, ": ");
             return choice;
         }
-        inline int viewSubMenu2(const std::string&view) {  // this is invoke from shopMenu page
+        int viewSubMenu2() {  // this is invoke from shopMenu page
             std::cout << std::endl;
-            std::cout << "1) " << view << std::endl;
-            std::cout << "2) Back to Shop page" << std::endl;
-            std::cout << "3) Back to Main page" << std::endl;
+            std::cout << "1) Order" << std::endl;
+            std::cout << "2) Back to Main page" << std::endl;
+            std::cout << "3) Quit" << std::endl;
             std::cout << std::endl;
             askForInput<int>(choice, ": ");
             return choice;
         } 
-        inline int viewSubMenu3() {
+        int viewSubMenu3() {
             std::cout << std::endl;
             std::cout << "1) Go back to Main page" << std::endl;
             std::cout << "2) Exit" << std::endl;
             std::cout << std::endl;
             askForInput<int>(choice, ": ");
+            return choice;
         }
-        // void shop(const Produce &produce, const Menu &menu) {
+        int shop(Produce &produce) {
+            produce.showItems();
+            produce.takeOrder();
+            produce.showItems();
+            return 0; // zero if successfull
+        }
+        int order (Produce &produce) {
+            produce.showItems();
+            produce.takeOrder();
+            return 0;
+        }
+        // void cart(const Produce &produce, const Menu &menu, const Customer &customer) {
+        //     int choice;
         //     bool backToMainPage{false};
-        //     bool firstTimeOrder{true};
-        //     bool inPostOrder{true};
-        //     int level{1}
-        //     while (!backToMainPage) {
-        //         produce.showItems();
-        //         if (firstTimeOrder) { 
-        //             firstTimeOrder = false;
-        //             produce.takeorder();
-        //             continue;
-        //         }
-        //         menu.viewSubMenu("View Cart");
-        //         askForInput(choice, ": ");
-        //         switch (choice) {
-        //             case 1: produce.viewCart();
-        //                     menu.viewSubMenu("Checkout");
-        //                     break;
-        //             case 2: firstTimeOrder = true;
-        //                     continue;
-        //             case 3: backToMainPage = true;
-        //                     continue;
-        //         }
-        //         askForInput<int>(choice, ": ");
+        //     bool backToShopPage{false};
+        //     menu.viewSubMenu2("Checkout");
+        //     askForInput<int>(choice, ":");
+        //     while (!backToMainPage){
         //         switch (choice) {
         //             case 1: produce.calculateTotal(customer.checkMembership());
-        //                     menu.viewSubMenu("Place Order");
+        //                     menu.viewSubMenu2("Place Order");
         //                     break;
-        //             case 2: firstTimeOrder = true;
+        //             case 2: // back to shop page
+        //                     // backToShopPage = true;
         //                     continue;
-        //             case 3: backToMainPage = true;
+        //             case 3: // back to main page
+        //                     // backToMainPage = true;
         //                     continue;
         //         }
         //         askForInput<int>(choice, ": ");
         //         switch (choice) {
-        //             case 1: produce.placeOrder();
-        //                     menu.viewSubMenu3();
+        //             case 1: menu.viewSubMenu3();
+        //                     produce.placeOrder();
         //                     break;
-        //             case 2: firstTimeOrder = true;
-        //                     continue;
-        //             case 3: backToMainPage = true;
-        //                     continue;
-        //         }
-        //         askForInput<int>(choice, ": ");
-        //         switch (choice) {
-        //             case 1: backToMainPage = true;
-        //                     continue;
-        //             case 2: return 0;
+        //             case 2: // go to add/remove order
+        //                     break;
+        //             case 3: // back to main page
+        //                     break;
         //         }
         //     }
         // }
-        // // im not sure yet what to do with this return values
-        
-        int shop(const Produce &produce) {
-            produce.showItems();
-            produce.takeorder();
-        }
-        int order(const Produce &produce) {
-            produce.showItems();
-            produce.takeorder();
-            return 0;
-        }
-        void cart(const Produce &produce, const Menu &menu, const Customer &customer) {
-            int choice;
-            bool backToMainPage{false};
-            bool backToShopPage{false};
-
-            menu.viewSubMenu2("Checkout");
-            askForInput<int>(choice, ":");
-            while (!backToMainPage){
-                switch (choice) {
-                    case 1: produce.calculateTotal(customer.checkMembership());
-                            menu.viewSubMenu2("Place Order");
-                            break;
-                    case 2: // back to shop page
-                            // backToShopPage = true;
-                            continue;
-                    case 3: // back to main page
-                            // backToMainPage = true;
-                            continue;
-                }
-                askForInput<int>(choice, ": ");
-                switch (choice) {
-                    case 1: menu.viewSubMenu3();
-                            produce.placeOrder();
-                            break;
-                    case 2: // go to add/remove order
-                            break;
-                    case 3: // back to main page
-                            break;
-                }
-            }
-        }
-        int checkout(const Produce &produce, const Menu &menu, const Customer &customer) {
-            int choice;
-            produce.calculateTotal(customer.checkMembership());
-            menu.viewSubMenu("Place Order");
-            askForInput<int>(choice, ": ");
-            if (choice == 1) {
-                produce.calculateTotal(customer.checkMembership());
-                menu.viewSubMenu2("Place Order");
-            }
-            return 0;
-        }
+        // int checkout(const Produce &produce, const Menu &menu, const Customer &customer) {
+        //     int choice;
+        //     produce.calculateTotal(customer.checkMembership());
+        //     menu.viewSubMenu("Place Order");
+        //     askForInput<int>(choice, ": ");
+        //     if (choice == 1) {
+        //         produce.calculateTotal(customer.checkMembership());
+        //         menu.viewSubMenu2("Place Order");
+        //     }
+        //     return 0;
+        // }
 };

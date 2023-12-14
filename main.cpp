@@ -22,17 +22,17 @@
 #include "CustomerClass.hpp"
 #include "ProduceClass.hpp"
 #include "FreeFunctions.hpp"
-#include "MenuClasses.hpp"
+#include "MenuClass.hpp"
 
 int main() {
 
     ProduceByWeight objProduceWeight;
     ProduceByAmount objProduceAmount;
-    Produce objProduce;
+    Produce produce;
     Customer customer;
     Menu menu;
 
-    objProduce.loadFiles();
+    produce.loadFiles();
 
     bool backToMainPage{false};
     bool backToShopMenu{false};
@@ -46,11 +46,12 @@ int main() {
 // this menu implementation could have done better by using
 // functions to pass inputs and take outputs
 // would have been less clunky
-    while (!backToMainPage) {
-        choice = welcome();
+    while (true) {
+        backToMainPage = false;
+        choice = menu.welcome();
         switch (choice) {
             case 1: // show shop page
-                    choice = viewShopMenu();
+                    choice = menu.viewShopMenu();
                     break;
             case 2: // sign up
                     customer.signUp();
@@ -61,75 +62,72 @@ int main() {
             case 4: // quit
                     return 0;
         }
-        while (!backToShopMenu) {
-            switch (choice) {
-                case 1: // view products
-                        while (true) {
-                            menu.shop();
-                            choice = menu.viewSubMenu("View Cart");
-                            // view cart from view products
+        while (!backToMainPage) {
+            // if order chosen
+            if (choice == 1) {  // view product chosen
+                menu.shop(produce);
+                choice = menu.viewSubMenu("View Cart");
+                switch (choice) {
+                    case 1: // view cart chosen
+                            choice = 2;
+                            continue;
+                    case 2: // add/remove chosen
+                            choice = 1;
+                            continue;
+                    case 3: // back to main page chosen
+                            backToMainPage = true;
+                            continue;
+                }
+            }
+            // if view chart chosen
+            if (choice == 2) {
+                if (produce.viewCart()) {
+                    choice = menu.viewSubMenu("Checkout");
+                    switch (choice) {
+                        case 1: // checkout chosen
+                                // something
+                                choice = 3; // to choose checkout
+                                continue;
+                        case 2: // add/remove order chosen
+                                choice = 1;
+                                continue;
+                        case 3: backToMainPage = true;
+                                continue;
+                    }
+                }
+                else {
+                    choice = menu.viewSubMenu2();
+                    if (choice == 2) {
+                        backToMainPage = true; // back to welcome()
+                    } else if (choice == 3) {
+                        return 0;
+                    }
+                    // this is implicitly saying that go to ordering process 
+                    continue;
+                }
+            }
+            // if checkout chosen
+            if (choice == 3 ) {
+                produce.calculateTotal(customer.checkMembership());
+                choice = menu.viewSubMenu("Place Order");
+                switch (choice) {
+                    case 1: // place order
+                            produce.placeOrder();
+                            choice = menu.viewSubMenu3();
                             if (choice == 1) {
-                                fromViewProducts = true;
-                                break;
-                            } else if (choice == 3) {
                                 backToMainPage = true;
-                                backToShopMenu = true;
-                                break;
+                                continue;
                             }
-                        } 
-                case 2: // view cart
-                        produce.viewCart();
-                        if (fromViewProducts) {
-                            choice = menu.viewSubMenu("Checkout");
-                        } else if (fromShopPage) {
-                            choice = menu.viewSubMenu2("Checkout");
-                        }
-                        break;
-                case 3: // back to main page
-                        continue;
+                            return 0;   // if choice != 1, exit program
+                    case 2: // add/remove order
+                            choice = 1;
+                            continue;
+                    case 3: // retur to main page
+                            backToMainPage = true;
+                            continue;
+                }
             }
         }
-        switch (choice) {
-            case 1: 
-                    produce.checkout();
-                    if (fromViewProducts) {
-                        choice = menu.viewSubMenu("Place Order");
-                    } else if (fromShopPage) {
-                        choice = menu.viewSubMenu2("Checkout");
-                    }
-                    break;
-            case 3: // back to main page
-                    continue;
-        }
-        switch (choice) {
-            case 1: // calculatetotal
-                    produce.calculateTotal(customer.checkMembership());
-                    choice = menu.viewSubMenu2("Place Order");
-                    break;
-            case 2: //go to add/remove order
-                    break;
-            case 3: // back to main page
-                    continue;
-        }
-        switch (choice) {
-            case 1: // place order
-                    produce.placeOrder();
-                    choice = menu.viewSubMenu3();
-                    break;
-            case 2: // go to add/remove order
-                    break;
-            case 3: // back to main page
-                    continue;
-        }
-        switch (choice) {
-            case 1: // back to main page
-                    continue;
-            case 2: // exit program
-                    return 0;
-        }
     }
-    std::cout << "Press Enter to exit program.." << std::endl;
-    std::cin.get();
-    // init();
     return 0;
 }

@@ -67,33 +67,3 @@ void askForInput(T &a, T &b, const std::string prompt) {
         break;
     }
 }
-
-inline void welcome() {
-    std::cout << std::endl;
-    std::cout << fmt::format("\n{:^63}\n", "Welcome to Marty's Produce Market") << std::endl;
-    std::cout << fmt::format("1) Shop") << std::endl;
-    std::cout << fmt::format("2) Sign Up for membership discount") << std::endl;
-    std::cout << fmt::format("3) Login") << std::endl;
-    std::cout << fmt::format("4) Quit") << std::endl;
-    std::cout << std::endl;
-}
-
-inline void viewShopMenu() {
-    std::cout << std::endl << std::endl;
-    std::cout << fmt::format("1) View Products") << std::endl;
-    std::cout << fmt::format("2) View Cart") << std::endl;
-    std::cout << std::endl;
-    std::cout << fmt::format("3) Back to Main Page") << std::endl;
-    std::cout << std::endl << std::endl;
-}
-
-inline void viewSubMenu() {
-    std::cout << "2) Add/Remove Order" << std::endl << std::endl;
-    std::cout << "3) Back to Main page" << std::endl;
-    std::cout << std::endl << std::endl;
-}
-
-inline void viewSubMenu2() {
-    std::cout << "2) Back to Shop page" << std::endl;
-    std::cout << "3) Back to Main page" << std::endl;
-} 
