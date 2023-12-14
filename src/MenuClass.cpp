@@ -1,7 +1,4 @@
-#include <iostream>
-#include "ProduceClass.hpp"
-#include "CustomerClass.hpp"
-#include "FreeFunctions.hpp"
+#include "MenuClass.hpp"
 
 int Menu::welcome() { // modify this!
     std::cout << std::endl;

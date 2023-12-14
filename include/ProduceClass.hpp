@@ -11,6 +11,9 @@
 #include <fstream>
 #include <map>
 #include <fmt/format.h>
+#include <iomanip>
+
+#include "FreeFunctions.hpp"
 
 // Side Note: I could have done some polishing for these functions:
 // showItems(), viewCart(), and calculatTotal()

@@ -15,22 +15,7 @@
 // Description:       class member function definitions to process item produce
 //
 //============================================================================
-
-#define FMT_HEADER_ONLY
-#include <string>
-#include <iostream>
-#include <algorithm>
-#include <memory>
-#include <vector>
-#include <cxxabi.h>
-#include <array>
-#include <fstream>
-#include <map>
-#include <fmt/format.h>
-#include <iomanip>
-
 #include "ProduceClass.hpp"
-#include "FreeFunctions.hpp"
 
 // Side Note: I could have done some polishing for these functions:
 // showItems(), viewCart(), and calculatTotal()

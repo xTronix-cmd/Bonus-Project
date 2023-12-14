@@ -8,9 +8,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 include(CTest)
 enable_testing()
 
-add_executable(marketProduce main.cpp src/CustomerClass.cpp src/ProduceClass.cpp)
+add_executable(marketProduce main.cpp src/CustomerClass.cpp src/ProduceClass.cpp src/MenuClass.cpp)
 set_target_properties(marketProduce PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
-target_include_directories(marketProduce PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_include_directories(marketProduce PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})

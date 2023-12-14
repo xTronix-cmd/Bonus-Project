@@ -9,6 +9,7 @@
 #include <fmt/format.h>
 #include <filesystem>
 
+#include "FreeFunctions.hpp"
 class Customer {
     protected:
         struct customerInfo {

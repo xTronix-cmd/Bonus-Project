@@ -15,19 +15,7 @@
 // Description:  member function definitions for customer management
 //
 //============================================================================
-
-#define FMT_HEADER_ONLY
-#include <algorithm>
-#include <string>
-#include <vector>
-#include <map>
-#include <fstream>
-#include <iostream>
-#include <fmt/format.h>
-#include <filesystem>
-
 #include "CustomerClass.hpp"
-#include "FreeFunctions.hpp"
 
 void Customer::showCustomerInfo() const {
     std::cout << "Full name: " << m_customer.fullName << std::endl;
