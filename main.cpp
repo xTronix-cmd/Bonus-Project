@@ -34,19 +34,15 @@ int main() {
 
     produce.loadFiles();
 
-    bool backToMainPage{false};
-    bool backToShopMenu{false};
-    bool backToShopPage{false};
-    bool fromViewProducts{false};
-    bool fromShopPage{false};
-    std::string strInput;
-    double price;
+    bool backToMainPage;
+    bool leaveMarket{false};
     int choice; 
 
 // this menu implementation could have done better by using
 // functions to pass inputs and take outputs
 // would have been less clunky
-    while (true) {
+    while (!leaveMarket) {
+        // this is to reset the flag when it's set somewhere to go back to main page
         backToMainPage = false;
         choice = menu.welcome();
         switch (choice) {
@@ -60,74 +56,29 @@ int main() {
                     customer.login();
                     continue; // after login back to main page
             case 4: // quit
-                    return 0;
+                    leaveMarket = true;
+                    continue;
         }
         while (!backToMainPage) {
-            // if order chosen
-            if (choice == 1) {  // view product chosen
-                menu.shop(produce);
-                choice = menu.viewSubMenu("View Cart");
-                switch (choice) {
-                    case 1: // view cart chosen
-                            choice = 2;
-                            continue;
-                    case 2: // add/remove chosen
-                            choice = 1;
-                            continue;
-                    case 3: // back to main page chosen
-                            backToMainPage = true;
-                            continue;
-                }
+            switch (choice) {
+                // case 1: order chosen
+                case 1: choice = menu.order(produce);
+                        break;
+                // case 2: cart chosen
+                case 2: choice = menu.cart(produce);
+                        break;
+                // case 3: checkout chosen
+                case 3: choice = menu.checkout(produce, customer);
+                        break;
             }
-            // if view chart chosen
-            if (choice == 2) {
-                if (produce.viewCart()) {
-                    choice = menu.viewSubMenu("Checkout");
-                    switch (choice) {
-                        case 1: // checkout chosen
-                                // something
-                                choice = 3; // to choose checkout
-                                continue;
-                        case 2: // add/remove order chosen
-                                choice = 1;
-                                continue;
-                        case 3: backToMainPage = true;
-                                continue;
-                    }
-                }
-                else {
-                    choice = menu.viewSubMenu2();
-                    if (choice == 2) {
-                        backToMainPage = true; // back to welcome()
-                    } else if (choice == 3) {
-                        return 0;
-                    }
-                    // this is implicitly saying that go to ordering process 
-                    continue;
-                }
-            }
-            // if checkout chosen
-            if (choice == 3 ) {
-                produce.calculateTotal(customer.checkMembership());
-                choice = menu.viewSubMenu("Place Order");
-                switch (choice) {
-                    case 1: // place order
-                            produce.placeOrder();
-                            choice = menu.viewSubMenu3();
-                            if (choice == 1) {
-                                backToMainPage = true;
-                                continue;
-                            }
-                            return 0;   // if choice != 1, exit program
-                    case 2: // add/remove order
-                            choice = 1;
-                            continue;
-                    case 3: // retur to main page
-                            backToMainPage = true;
-                            continue;
-                }
+            if (choice == -1) { 
+                backToMainPage = true;
+            } else if (choice == 0) { 
+                backToMainPage = true;
+                leaveMarket = true;
             }
         }
     }
+    std::cout << "Thank you! Come again." << std::endl;
     return 0;
 }

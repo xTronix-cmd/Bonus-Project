@@ -106,49 +106,55 @@ class Menu {
             return 0; // zero if successfull
         }
         int order (Produce &produce) {
-            produce.showItems();
-            produce.takeOrder();
-            return 0;
+            int choice;
+            this->shop(produce);
+            choice = this->viewSubMenu("View Cart");
+            switch (choice) {
+                case 1: return 2;
+                case 2: return 1;
+                case 3: return -1;
+            }
+            return 0; // by default exits
         }
-        // void cart(const Produce &produce, const Menu &menu, const Customer &customer) {
-        //     int choice;
-        //     bool backToMainPage{false};
-        //     bool backToShopPage{false};
-        //     menu.viewSubMenu2("Checkout");
-        //     askForInput<int>(choice, ":");
-        //     while (!backToMainPage){
-        //         switch (choice) {
-        //             case 1: produce.calculateTotal(customer.checkMembership());
-        //                     menu.viewSubMenu2("Place Order");
-        //                     break;
-        //             case 2: // back to shop page
-        //                     // backToShopPage = true;
-        //                     continue;
-        //             case 3: // back to main page
-        //                     // backToMainPage = true;
-        //                     continue;
-        //         }
-        //         askForInput<int>(choice, ": ");
-        //         switch (choice) {
-        //             case 1: menu.viewSubMenu3();
-        //                     produce.placeOrder();
-        //                     break;
-        //             case 2: // go to add/remove order
-        //                     break;
-        //             case 3: // back to main page
-        //                     break;
-        //         }
-        //     }
-        // }
-        // int checkout(const Produce &produce, const Menu &menu, const Customer &customer) {
-        //     int choice;
-        //     produce.calculateTotal(customer.checkMembership());
-        //     menu.viewSubMenu("Place Order");
-        //     askForInput<int>(choice, ": ");
-        //     if (choice == 1) {
-        //         produce.calculateTotal(customer.checkMembership());
-        //         menu.viewSubMenu2("Place Order");
-        //     }
-        //     return 0;
-        // }
+
+        int cart(Produce &produce) {
+            int choice;
+            if (produce.viewCart()) {
+                choice = this->viewSubMenu("Checkout");
+                switch (choice) {
+                    case 1: return 3;  // checkout is chosen
+                    case 2: return 1;  // add/remove order chosen
+                    case 3: return -1; // back to main page
+                }
+            }
+            else {
+                choice = this->viewSubMenu2();
+                switch (choice) {
+                    case 1: return 1;  // add/remove order chosen
+                    case 2: return -1; // back to main page
+                    case 3: return 0;  // exits program
+                }
+            }
+            return 0; // by default exits
+        }
+
+        int checkout(Produce &produce, Customer &customer) {
+            int choice;
+            produce.calculateTotal(customer.checkMembership());
+            choice = this->viewSubMenu("Place Order");
+            switch (choice) {
+                case 1: // place order
+                        produce.placeOrder();
+                        choice = this->viewSubMenu3();
+                        if (choice == 1) {
+                            return -1;  // back to main page
+                        }
+                        return 0;  // exits program
+                case 2: // add/remove order
+                        return 1;
+                case 3:
+                        return -1;  // back to main page
+            }
+            return 0; // by default exits
+        }
 };
