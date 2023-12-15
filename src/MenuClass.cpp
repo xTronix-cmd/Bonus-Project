@@ -12,40 +12,50 @@ int Menu::welcome() { // modify this!
     return choice;
 }
 int Menu::viewShopMenu() {
-    std::cout << std::endl << std::endl;
-    std::cout << fmt::format("1) View Products") << std::endl;
-    std::cout << fmt::format("2) View Cart") << std::endl;
-    std::cout << std::endl;
-    std::cout << fmt::format("3) Back to Main Page") << std::endl;
-    std::cout << std::endl << std::endl;
-    askForInput<int>(choice, ": ");
-    return choice;
+    while (true) {
+        std::cout << std::endl << std::endl;
+        std::cout << fmt::format("1) View Products") << std::endl;
+        std::cout << fmt::format("2) View Cart") << std::endl;
+        std::cout << std::endl;
+        std::cout << fmt::format("3) Back to Main Page") << std::endl;
+        std::cout << std::endl << std::endl;
+        askForInput<int>(choice, ": ");
+        if (choice >= 1 && choice <= 3) { return choice; }
+        
+    }
 }
 int Menu::viewSubMenu(const std::string &view) {
-    std::cout << std::endl;
-    std::cout << "1) " << view << std::endl;
-    std::cout << "2) Add/Remove Order" << std::endl << std::endl;
-    std::cout << "3) Back to Main page" << std::endl;
-    std::cout << std::endl << std::endl;
-    askForInput<int>(choice, ": ");
-    return choice;
+    while (true) {
+        std::cout << std::endl;
+        std::cout << "1) " << view << std::endl;
+        std::cout << "2) Add/Remove Order" << std::endl << std::endl;
+        std::cout << "3) Back to Main page" << std::endl;
+        std::cout << std::endl << std::endl;
+        askForInput<int>(choice, ": ");
+        if (choice >= 1 && choice <= 3) { return choice; }
+    }
 }
 int Menu::viewSubMenu2() {  // this is invoke from shopMenu page
-    std::cout << std::endl;
-    std::cout << "1) Order" << std::endl;
-    std::cout << "2) Back to Main page" << std::endl;
-    std::cout << "3) Quit" << std::endl;
-    std::cout << std::endl;
-    askForInput<int>(choice, ": ");
-    return choice;
+    while (true) {
+        std::cout << std::endl;
+        std::cout << "1) Order" << std::endl;
+        std::cout << "2) Back to Main page" << std::endl;
+        std::cout << "3) Quit" << std::endl;
+        std::cout << std::endl;
+        askForInput<int>(choice, ": ");
+        if (choice >= 1 && choice <= 3) { return choice; }
+    }
 } 
 int Menu::viewSubMenu3() {
-    std::cout << std::endl;
-    std::cout << "1) Go back to Main page" << std::endl;
-    std::cout << "2) Exit" << std::endl;
-    std::cout << std::endl;
-    askForInput<int>(choice, ": ");
-    return choice;
+    while (true) {
+        std::cout << std::endl;
+        std::cout << "1) Go back to Main page" << std::endl;
+        std::cout << "2) Exit" << std::endl;
+        std::cout << std::endl;
+        askForInput<int>(choice, ": ");
+        if (choice == 1 || choice == 2) { return choice; }
+    }
+    return 0;
 }
 void Menu::shop(Produce &produce) {
     produce.showItems();
@@ -54,50 +64,60 @@ void Menu::shop(Produce &produce) {
 }
 int Menu::order (Produce &produce) {
     this->shop(produce);
-    choice = this->viewSubMenu("View Cart");
-    switch (choice) {
-        case 1: return 2;
-        case 2: return 1;
-        case 3: return -1;
+    while (true) {
+        choice = this->viewSubMenu("View Cart");
+        switch (choice) {
+            case 1: return 2;
+            case 2: return 1;
+            case 3: return -1;
+            default: continue;
+        }
     }
     return 0; // by default exits
 }
 
 int Menu::cart(Produce &produce) {
-    if (produce.viewCart()) {
-        choice = this->viewSubMenu("Checkout");
-        switch (choice) {
-            case 1: return 3;  // checkout is chosen
-            case 2: return 1;  // add/remove order chosen
-            case 3: return -1; // back to main page
+    while (true) {
+        if (produce.viewCart()) {
+            choice = this->viewSubMenu("Checkout");
+            switch (choice) {
+                case 1: return 3;  // checkout is chosen
+                case 2: return 1;  // add/remove order chosen
+                case 3: return -1; // back to main page
+                default: continue;
+            }
         }
-    }
-    else {
-        choice = this->viewSubMenu2();
-        switch (choice) {
-            case 1: return 1;  // add/remove order chosen
-            case 2: return -1; // back to main page
-            case 3: return 0;  // exits program
+        else {
+            choice = this->viewSubMenu2();
+            switch (choice) {
+                case 1: return 1;  // add/remove order chosen
+                case 2: return -1; // back to main page
+                case 3: return 0;  // exits program
+                default: continue;
+            }
         }
+        return 0; // by default exits
     }
-    return 0; // by default exits
 }
 
 int Menu::checkout(Produce &produce, Customer &customer) {
     produce.calculateTotal(customer.checkMembership());
-    choice = this->viewSubMenu("Place Order");
-    switch (choice) {
-        case 1: // place order
-                produce.placeOrder();
-                choice = this->viewSubMenu3();
-                if (choice == 1) {
+    while (true) {
+        choice = this->viewSubMenu("Place Order");
+        switch (choice) {
+            case 1: // place order
+                    produce.placeOrder();
+                    choice = this->viewSubMenu3();
+                    if (choice == 1) {
+                        return -1;  // back to main page
+                    }
+                    return 0;  // exits program
+            case 2: // add/remove order
+                    return 1;
+            case 3:
                     return -1;  // back to main page
-                }
-                return 0;  // exits program
-        case 2: // add/remove order
-                return 1;
-        case 3:
-                return -1;  // back to main page
+            default: continue;
+        }
     }
     return 0; // by default exits
 }

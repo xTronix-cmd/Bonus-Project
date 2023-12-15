@@ -47,6 +47,7 @@ int main() {
         switch (choice) {
             case 1: // show shop page
                     choice = menu.viewShopMenu();
+                    if (choice )
                     break;
             case 2: // sign up
                     customer.signUp();
@@ -57,6 +58,7 @@ int main() {
             case 4: // quit
                     leaveMarket = true;
                     continue;
+            default: continue; // back to main page
         }
         while (!backToMainPage) {
             switch (choice) {
@@ -69,13 +71,14 @@ int main() {
                 // case 3: checkout chosen
                 case 3: choice = menu.checkout(produce, customer);
                         break;
+                // default: continue; // back to menu page
             }
             if (choice == -1) { 
                 backToMainPage = true;
             } else if (choice == 0) { 
                 backToMainPage = true;
                 leaveMarket = true;
-            }
+            } else { continue; }
         }
     }
     std::cout << "Thank you! Come again." << std::endl;
