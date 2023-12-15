@@ -121,3 +121,15 @@ int Menu::checkout(Produce &produce, Customer &customer) {
     }
     return 0; // by default exits
 }
+int Menu::viewManagerPage() {
+    while (true) {
+        std::cout << std::endl;
+        std::cout << "1) Add Item" <<std::endl;
+        std::cout << "2) Remove Item" <<std::endl;
+        std::cout << "3) Add member" <<std::endl;
+        std::cout << "4) Remove Item" <<std::endl;
+        std::cout << std::endl;
+        askForInput(choice, ": ");
+        if (choice >= 1 && choice <= 4) { return choice; }
+    }
+}
