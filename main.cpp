@@ -33,6 +33,8 @@ int main() {
     Menu menu;
     Manager manager;
 
+    customer.loadCustomersDatabase();
+
     manager.setManagerInfo("Marty", "Tigz", "Locker1");
 
     produce.loadFiles();
@@ -78,7 +80,11 @@ int main() {
                                             case 1: ; // add item
                                             case 2: ;// remove item
                                             case 3: ;// add member
-                                            case 4: ; // remove member
+                                            case 4: std::string name;
+                                                    std::cout << "Enter member name to remove: ";
+                                                    std::cin >> name;
+                                                    manager.deleteMember(name);
+                                                    break;
                                         }
                                         continue;
                                 case 5: backToMainPage = true;

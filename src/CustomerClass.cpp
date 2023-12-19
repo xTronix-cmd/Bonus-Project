@@ -17,6 +17,10 @@
 //============================================================================
 #include "CustomerClass.hpp"
 
+std::vector<Customer::customerInfo> Customer::getCustomerDatabase() const {
+    return m_customersDatabase;
+}
+
 void Customer::showCustomerInfo() const {
     std::cout << "Full name: " << m_customer.fullName << std::endl;
     std::cout << "Street: " << m_customer.street << std::endl;
@@ -49,7 +53,7 @@ void Customer::signUp()
 
         if (c == 'y' || c == 'Y') {
             m_customersDatabase.push_back(m_customer);
-            saveCustomersDatabase();
+            saveCurrentCustomer();
             std::cout << std::endl;
             m_customer.isMember = true;
             break; 
@@ -160,8 +164,21 @@ bool Customer::loadCustomersDatabase() {
     }
     return true;  // when file is successfully loaded
 }
-//  save customer's data 
+
 bool Customer::saveCustomersDatabase() {
+    if (std::ofstream outputFile{m_fileName, std::ios::out}) {
+        std::cout << "saveCustomersDatabase()" << std::endl;
+        for (const customerInfo &customer : m_customersDatabase) {
+            outputFile << fmt::format("\n{:<13}{:^4}{:<25}\n", "Full Name:", "", "\"" + customer.fullName + "\"");
+            outputFile << fmt::format("{:<13}{:^4}{:<25}\n", "Street:", "", "\"" + customer.street +"\"");
+            outputFile << fmt::format("{:<13}{:^4}{:<25}\n", "City:", "", "\"" + customer.city + "\"");
+            outputFile << fmt::format("{:<13}{:^4}{:<25}\n", "Postal Code:", "", "\"" + customer.postalCode + "\"");
+        }
+    }
+    return true;
+}
+//  save current customer's data 
+bool Customer::saveCurrentCustomer() {
     if (std::ofstream outputFile{m_fileName, std::ios::out | std::ios::app}) {
         outputFile << fmt::format("\n{:<13}{:^4}{:<25}\n", "Full Name:", "", "\"" + m_customer.fullName + "\"");
         outputFile << fmt::format("{:<13}{:^4}{:<25}\n", "Street:", "", "\"" + m_customer.street +"\"");

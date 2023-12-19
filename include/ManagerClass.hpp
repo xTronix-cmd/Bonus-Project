@@ -10,7 +10,6 @@
 #include <conio.h>
 
 #include "CustomerClass.hpp"
-// #include "FreeFunctions.hpp"
 #include "ProduceClass.hpp"
 
 #define BACKSPACE 8
@@ -43,18 +42,7 @@ class Manager : public Customer, public Produce {
     void loadManagerInfo(const std::string &filename);
     void viewManagerInfo();
 
-    bool deleteMember(const std::string &name) {
-        std::string firstName;
-        for (auto itCustomerInfo{m_customersDatabase.begin()}; itCustomerInfo != m_customersDatabase.begin();) {
-            size_t firstNameLocation = itCustomerInfo->fullName.find_first_of(" ");
-            firstName = itCustomerInfo->fullName.substr(0, firstNameLocation);
-            if (caseInsStringCmp(name, firstName)) {
-                m_customersDatabase.erase(itCustomerInfo);
-                return true;
-            }
-            itCustomerInfo++;
-        }
-    }
+    bool deleteMember(const std::string &name);
     // void addItemWeight(ProduceByWeight &weight, std::string itemToAdd, double price) {
     //     m_isManager = true;
     //     weight.addItem(itemToAdd, price);

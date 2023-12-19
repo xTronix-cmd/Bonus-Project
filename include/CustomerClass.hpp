@@ -27,7 +27,6 @@ class Customer {
     
     public:
         Customer() {
-            loadCustomersDatabase();
             // load the existing database in file when an object is instantiated
         }
         virtual ~Customer() = default;  // just incase if we later inherit from this class
@@ -42,10 +41,12 @@ class Customer {
         }
 
         bool caseInsStringCmp(const std::string &s1, const std::string &s2);
+        std::vector<customerInfo> getCustomerDatabase() const;
 
         void login();
         void viewCustomersDatabase() const;
         bool loadCustomersDatabase();
-        //  save customer's data 
         bool saveCustomersDatabase();
+        //  save customer's data 
+        bool saveCurrentCustomer();
 };
