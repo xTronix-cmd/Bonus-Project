@@ -67,9 +67,9 @@ int main() {
                         while (!backToMainPage && !backToManagerMenu) {
                             choice = menu.viewManagerMenu();
                             switch (choice) {
-                                case 1: manager.saveManagerInfo("man.dat");
+                                case 1: manager.saveManagerInfo("data/man.dat");
                                         continue;
-                                case 2: manager.loadManagerInfo("man.dat"); 
+                                case 2: manager.loadManagerInfo("data/man.dat"); 
                                         continue;
                                 case 3: manager.viewManagerInfo();
                                         continue;
