@@ -22,6 +22,7 @@
 #include "ProduceClass.hpp"
 // #include "FreeFunctions.hpp"
 #include "MenuClass.hpp"
+#include "ManagerClass.hpp"
 
 int main() {
 
@@ -30,6 +31,9 @@ int main() {
     Produce produce;
     Customer customer;
     Menu menu;
+    Manager manager;
+
+    manager.setManagerInfo("Marty", "Tigz", "Locker1");
 
     produce.loadFiles();
 
@@ -58,6 +62,31 @@ int main() {
             case 4: // quit
                     leaveMarket = true;
                     continue;
+            case 7: if (manager.managerLogin()) {
+                        bool backToManagerMenu{false};
+                        while (!backToMainPage && !backToManagerMenu) {
+                            choice = menu.viewManagerMenu();
+                            switch (choice) {
+                                case 1: manager.saveManagerInfo("man.dat");
+                                        continue;
+                                case 2: manager.loadManagerInfo("man.dat"); 
+                                        continue;
+                                case 3: manager.viewManagerInfo();
+                                        continue;
+                                case 4: choice = menu.viewManagerPage();
+                                        switch (choice) {
+                                            case 1: ; // add item
+                                            case 2: ;// remove item
+                                            case 3: ;// add member
+                                            case 4: ; // remove member
+                                        }
+                                        continue;
+                                case 5: backToMainPage = true;
+                                        backToManagerMenu = true;
+                                        continue;
+                            }
+                        }
+                    }
             default: continue; // back to main page
         }
         while (!backToMainPage) {

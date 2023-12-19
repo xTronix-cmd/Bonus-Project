@@ -19,4 +19,7 @@ class Menu {
     int order (Produce &produce);
     int cart(Produce &produce);
     int checkout(Produce &produce, Customer &customer);
+    int viewManagerPage();
+    int viewManagerMenu();
+
 };
