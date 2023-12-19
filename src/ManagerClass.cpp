@@ -44,21 +44,19 @@ bool Manager::managerLogin() {
     std::cout << "Username: ";
     std::cin >> username;
     for (const auto &[key, value] : m_managerInfo.loginInfo) {
-        if (username == key) {
+        if (caseInsStringCmp(username, key)) {
             for (size_t tries{1}; tries <= 3; tries++){
                 std::cout << "Password: ";
                 password = inputPassword();
-                if (password == value) { break; }
+                if (password == value) { return true; }
                 std::cout << "Incorrect password. Try again\n";
             }
         }
+        else {
+            std::cout << "Sorry, you're not in managers list" << std::endl;
+        }
     }
-    // }
-    //     else {
-    //         std::cout << "Sorry, you're not in managers list" << std::endl;
-    //         return false;
-    //     }
-    return true;
+    return false;
 }
 
 // change existing user password
