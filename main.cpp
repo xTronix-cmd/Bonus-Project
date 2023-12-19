@@ -69,6 +69,7 @@ int main() {
                     continue;
             case 7: if (manager.managerLogin()) {
                         std::string str;
+                        std::array<std::string, 3> commandLine;
                         bool backToManagerMenu{false};
                         while (!backToMainPage && !backToManagerMenu) {
                             choice = menu.viewManagerMenu();
@@ -81,7 +82,18 @@ int main() {
                                         continue;
                                 case 4: choice = menu.viewManagerPage();
                                         switch (choice) {
-                                            case 1: break; // add item
+                                            case 1:
+                                                    std::cout << "Enter the command to add an item: [-w/-a] [Item] [Price]" << std::endl;
+                                                    std::cout << "e.g: -w Carrots 1.45 to add in the produce by weight" << std::endl;
+                                                    std::cout << ": ";
+                                                    std::getline(std::cin, str);
+                                                    commandLine = manager.processAddItems(str);
+                                                    if (commandLine.at(0) == "-w") {
+                                                        objProduceWeight.addItem(commandLine.at(1), stod(static_cast<std::string>(commandLine.at(2))));
+                                                    } else if (commandLine.at(0) == "-a") {
+                                                        objProduceAmount.addItem(commandLine.at(1), stod(static_cast<std::string>(commandLine.at(2))));
+                                                    }
+                                                    break; // add item
                                             case 2: std::cout << "Enter the item to remove: ";
                                                     std::cin >> str;
                                                     manager.removeItems(objProduceAmount, objProduceWeight, str);

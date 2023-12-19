@@ -49,7 +49,7 @@ class Produce {
         void loadFiles();
         void resetFirstTimeCall();
 
-        virtual bool addItem(const std::string &item, double &price);
+        virtual bool addItem(const std::string &item, const double &price);
         virtual bool removeItem(const std::string &item);
         // show all of the items
         virtual void showItems();
@@ -84,7 +84,7 @@ class ProduceByWeight : public Produce {
         }
         virtual ~ProduceByWeight() = default;
 
-        bool addItem(const std::string &itemName, double &price) override; 
+        bool addItem(const std::string &itemName, const double &price) override; 
         bool removeItem(const std::string &itemName) override;
 
         std::map<std::string, double> &getItems();
@@ -111,7 +111,7 @@ class ProduceByAmount : public Produce {
         void saveItems();
 
         // addItem might not have time to fully implement
-        bool addItem(const std::string &itemName, double &price) override;
+        bool addItem(const std::string &itemName, const double &price) override;
 
         // needed more time to implement this for management
         // when manager logins.. he/she can add/remove inventory

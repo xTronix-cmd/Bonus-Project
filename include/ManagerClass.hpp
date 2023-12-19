@@ -8,6 +8,7 @@
 #include <vector>
 #include <algorithm>
 #include <conio.h>
+#include <array>
 
 #include "CustomerClass.hpp"
 #include "ProduceClass.hpp"
@@ -45,22 +46,5 @@ class Manager : public Customer, public ProduceByAmount, public ProduceByWeight 
 
     bool deleteMember(const std::string &name);
     void removeItems(ProduceByAmount &amount, ProduceByWeight &weight, const std::string &itemToDel);
-    // void addItemWeight(ProduceByWeight &weight, std::string itemToAdd, double price) {
-    //     m_isManager = true;
-    //     weight.addItem(itemToAdd, price);
-    // }
-
-    // void addItemAmount(ProduceByAmount &amount, std::string itemToAdd, double price) {
-    //     m_isManager = true;
-    //     amount.addItem(itemToAdd, price);
-
-    // }
-    // void removeItemAmount(ProduceByAmount &amount, std::string itemToDel) {
-    //     m_isManager = true;
-    //     amount.removeItem(itemToDel);
-    // }
-    // void removeItemWeight(ProduceByWeight &weight, std::string itemToDel) {
-    //     m_isManager = true;
-    //     weight.removeItem(itemToDel);
-    // }
+    const std::array<std::string, 3> processAddItems(const std::string &command);
 };
