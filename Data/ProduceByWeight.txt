@@ -1,9 +1,8 @@
-    Cucumbers   2.22
-    Carrots     2.39
-    Broccoli    1.26
-    Onions      2.37
-    Spinach     4.50
-    Potatoes    3.14
-    Celery      2.70
-    Peas        3.98
-    Tomatoes    5.36
+Broccoli   1.26
+Carrots    2.39
+Celery      2.7
+Onions     2.37
+Peas       3.98
+Potatoes   3.14
+Spinach     4.5
+Tomatoes   5.36

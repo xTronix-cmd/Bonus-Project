@@ -11,6 +11,7 @@
 
 #include "CustomerClass.hpp"
 #include "ProduceClass.hpp"
+// #include "FreeFunctions.hpp"
 
 #define BACKSPACE 8
 #define ENTER 13
@@ -22,7 +23,7 @@ struct managerInfo {
     MSS loginInfo;
 };
 
-class Manager : public Customer, public Produce {
+class Manager : public Customer, public ProduceByAmount, public ProduceByWeight {
     private:
 
     inline static managerInfo m_managerInfo;
@@ -43,6 +44,7 @@ class Manager : public Customer, public Produce {
     void viewManagerInfo();
 
     bool deleteMember(const std::string &name);
+    void removeItems(ProduceByAmount &amount, ProduceByWeight &weight, const std::string &itemToDel);
     // void addItemWeight(ProduceByWeight &weight, std::string itemToAdd, double price) {
     //     m_isManager = true;
     //     weight.addItem(itemToAdd, price);

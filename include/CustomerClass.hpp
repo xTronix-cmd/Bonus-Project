@@ -36,11 +36,11 @@ class Customer {
 
         void signUp();
         // helper functions for case insensitive string comparison
-        inline static bool predInsStringCmp(const char &a, const char &b) {
-            return (std::tolower(a) == std::tolower(b));
-        }
+        // inline static bool predInsStringCmp(const char &a, const char &b) {
+        //     return (std::tolower(a) == std::tolower(b));
+        // }
 
-        bool caseInsStringCmp(const std::string &s1, const std::string &s2);
+        // bool caseInsStringCmp(const std::string &s1, const std::string &s2);
         std::vector<customerInfo> getCustomerDatabase() const;
 
         void login();

@@ -178,10 +178,14 @@ bool Manager::deleteMember(const std::string &name) {
 //     amount.addItem(itemToAdd, price);
 
 // }
-// void removeItemAmount(ProduceByAmount &amount, std::string itemToDel) {
-//     m_isManager = true;
-//     amount.removeItem(itemToDel);
-// }
+void Manager::removeItems(ProduceByAmount &amount, ProduceByWeight &weight, const std::string &itemToDel) {
+    if (amount.removeItem(itemToDel)) {
+        std::cout << fmt::format("Item {} removed from amount", itemToDel) << std::endl;
+
+    } else if (weight.removeItem(itemToDel)) {
+        std::cout << fmt::format("Item {} removed from weight", itemToDel) << std::endl;
+    }
+}
 // void removeItemWeight(ProduceByWeight &weight, std::string itemToDel) {
 //     m_isManager = true;
 //     weight.removeItem(itemToDel);

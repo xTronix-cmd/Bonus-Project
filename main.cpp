@@ -38,6 +38,9 @@ int main() {
     manager.setManagerInfo("Marty", "Tigz", "Locker1");
 
     produce.loadFiles();
+    objProduceWeight.loadItems();
+    objProduceAmount.loadItems();
+
 
     bool backToMainPage;
     bool leaveMarket{false};
@@ -65,6 +68,7 @@ int main() {
                     leaveMarket = true;
                     continue;
             case 7: if (manager.managerLogin()) {
+                        std::string str;
                         bool backToManagerMenu{false};
                         while (!backToMainPage && !backToManagerMenu) {
                             choice = menu.viewManagerMenu();
@@ -77,13 +81,16 @@ int main() {
                                         continue;
                                 case 4: choice = menu.viewManagerPage();
                                         switch (choice) {
-                                            case 1: ; // add item
-                                            case 2: ;// remove item
-                                            case 3: ;// add member
-                                            case 4: std::string name;
+                                            case 1: break; // add item
+                                            case 2: std::cout << "Enter the item to remove: ";
+                                                    std::cin >> str;
+                                                    manager.removeItems(objProduceAmount, objProduceWeight, str);
+                                                    break;
+                                            case 3: break;// add member
+                                            case 4: 
                                                     std::cout << "Enter member name to remove: ";
-                                                    std::cin >> name;
-                                                    manager.deleteMember(name);
+                                                    std::cin >> str;
+                                                    manager.deleteMember(str);
                                                     break;
                                         }
                                         continue;
