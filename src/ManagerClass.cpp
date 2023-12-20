@@ -48,7 +48,10 @@ bool Manager::managerLogin() {
             for (size_t tries{1}; tries <= 3; tries++){
                 std::cout << "Password: ";
                 password = inputPassword();
-                if (password == value) { return true; }
+                if (password == value) { 
+                    loginStatus = true;
+                    isManager = true;
+                    return true; }
                 std::cout << "Incorrect password. Try again\n";
             }
         }

@@ -18,11 +18,11 @@ class Customer {
             std::string city{};
             std::string postalCode{};
             int customerNumber{};  // implement this later!
-            bool isMember{false};
-
         } m_customer;
 
         bool isManager{false};
+        bool isMember{false};
+        bool loginStatus{false};
         inline static std::vector<customerInfo> m_customersDatabase;
         inline static const char m_fileName[] = "./data/CustomersDatabase.txt";
     
