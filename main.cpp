@@ -105,6 +105,7 @@ int main() {
                                                     std::cin >> str;
                                                     manager.deleteMember(str);
                                                     break;
+                                            case 5: continue;  // back to manager's menu
                                         }
                                         continue;
                                 case 5: backToMainPage = true;

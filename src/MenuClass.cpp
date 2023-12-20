@@ -6,6 +6,7 @@ int Menu::welcome() { // modify this!
     std::cout << fmt::format("1) Shop") << std::endl;
     std::cout << fmt::format("2) Sign Up for membership discount") << std::endl;
     std::cout << fmt::format("3) Login") << std::endl;
+    std::cout << std::endl;
     std::cout << fmt::format("4) Quit") << std::endl;
     std::cout << std::endl;
     askForInput<int>(choice, ": ");
@@ -28,7 +29,8 @@ int Menu::viewSubMenu(const std::string &view) {
     while (true) {
         std::cout << std::endl;
         std::cout << "1) " << view << std::endl;
-        std::cout << "2) Add/Remove Order" << std::endl << std::endl;
+        std::cout << "2) Add/Remove Order" << std::endl;
+        std::cout << std::endl;
         std::cout << "3) Back to Main page" << std::endl;
         std::cout << std::endl << std::endl;
         askForInput<int>(choice, ": ");
@@ -39,6 +41,7 @@ int Menu::viewSubMenu2() {  // this is invoke from shopMenu page
     while (true) {
         std::cout << std::endl;
         std::cout << "1) Order" << std::endl;
+        std::cout << std::endl;
         std::cout << "2) Back to Main page" << std::endl;
         std::cout << "3) Quit" << std::endl;
         std::cout << std::endl;
@@ -128,6 +131,7 @@ int Menu::viewManagerMenu() {
         std::cout << "2) Load manager info" << std::endl;
         std::cout << "3) View manager info" << std::endl;
         std::cout << "4) Manager Task" <<std::endl;
+        std::cout << std::endl;
         std::cout << "5) Back to Main page" << std::endl;
         std::cout << std::endl;
         askForInput(choice, ": ");
@@ -139,10 +143,12 @@ int Menu::viewManagerPage() {
         std::cout << std::endl;
         std::cout << "1) Add Item" << std::endl;
         std::cout << "2) Remove Item" << std::endl;
-        std::cout << "3) Add member -- soon to be implemented" << std::endl;
+        std::cout << "3) Add member" << std::endl;
         std::cout << "4) Remove member" << std::endl;
         std::cout << std::endl;
+        std::cout << "5) Back to manager menu" << std::endl;
+        std::cout << std::endl;
         askForInput(choice, ": ");
-        if (choice >= 1 && choice <= 4) { return choice; }
+        if (choice >= 1 && choice <= 5) { return choice; }
     }
 }
