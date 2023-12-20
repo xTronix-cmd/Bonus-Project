@@ -152,6 +152,11 @@ void Manager::viewManagerInfo() {
     }
 }
 
+void Manager::addMember(Customer &customer) {
+    customer.signUp();
+    customer.saveCurrentCustomer();
+    std::cout << "Successfully added a member" << std::endl;
+}
 bool Manager::deleteMember(const std::string &name) {
     std::string firstName;
     for (auto itCustomerInfo{m_customersDatabase.begin()}; itCustomerInfo != m_customersDatabase.end();) {
@@ -166,16 +171,6 @@ bool Manager::deleteMember(const std::string &name) {
     }
     return true;
 }
-
-// void addItemWeight(ProduceByWeight &weight, std::string itemToAdd, double price) {
-//     m_isManager = true;
-//     weight.addItem(itemToAdd, price);
-// }
-
-// void addItemAmount(ProduceByAmount &amount, std::string itemToAdd, double price) {
-//     m_isManager = true;
-//     amount.addItem(itemToAdd, price);
-// }
 
 const std::array<std::string, 3> Manager::processAddItems(const std::string &command) {
     int wordCounter{1};

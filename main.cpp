@@ -98,7 +98,8 @@ int main() {
                                                     std::cin >> str;
                                                     manager.removeItems(objProduceAmount, objProduceWeight, str);
                                                     break;
-                                            case 3: break;// add member
+                                            case 3: manager.addMember(customer);// add member
+                                                    break;
                                             case 4: 
                                                     std::cout << "Enter member name to remove: ";
                                                     std::cin >> str;
