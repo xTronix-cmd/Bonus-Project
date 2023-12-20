@@ -268,8 +268,7 @@ bool Produce::viewCart() {
             return true;
         }
 
-void Produce::calculateTotal(bool isMember) {
-    m_isMember = isMember;
+void Produce::calculateTotal(int flag) {
     std::map<std::string, double>::iterator itWeight, itAmount;
     std::map<std::string, double> weight;
     std::map<std::string, double> amount;
@@ -346,19 +345,17 @@ void Produce::calculateTotal(bool isMember) {
         }
     }
 
-    // if (isMember || isManager) {
-    //     double percentDiscount
-    //     if (isMember) {
-    //         percentDiscount = 0.07;
-    //     } else if (isManager) {
-    //         percentDiscount = 0.10;
-    //     }
-    if (isMember) {
-        double percentDiscount{0.07};
-        discount = -(subtotal * percentDiscount);
+    if (flag != 0) {
+        double percentDiscount;
+        if (flag == membershipFlag::MEMBER) {
+            percentDiscount = 7.0;
+        } else if (flag == membershipFlag::MANAGER) {
+            percentDiscount = 10.0;
+        }
+        discount = -(subtotal * (percentDiscount/100));
         subtotal += discount;
         std::cout << std::endl;
-        std::cout << fmt::format("{:<50}{:>16.2f}", "Membership discount 7% off", discount) << std::endl;
+        std::cout << fmt::format("{:<50}{}% off{:>16.2f}", "Membership discount", percentDiscount, discount) << std::endl;
     }
     else { std::cout << fmt::format("{:<50}{:>16}", "No member discount", "") << std::endl; }
 

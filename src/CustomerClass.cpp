@@ -28,8 +28,15 @@ void Customer::showCustomerInfo() const {
     std::cout << "Postal Code: " << m_customer.postalCode << std::endl;
 }
 
-bool Customer::checkMembership() const {
-    return m_customer.isMember;
+int Customer::checkMembership() {
+    if (isManager) {
+        m_customer.isMember = false;
+        return membershipFlag::MANAGER;
+    } else if (m_customer.isMember) {
+        isManager = false;
+        return membershipFlag::MEMBER;
+    }
+    return 0;
 }
 
 void Customer::signUp()

@@ -72,3 +72,5 @@ inline static bool predInsStringCmp(const char &a, const char &b) {
     return (std::tolower(a) == std::tolower(b));
 }
 bool caseInsStringCmp(const std::string &s1, const std::string &s2);
+
+enum membershipFlag { MEMBER, MANAGER };

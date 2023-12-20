@@ -22,6 +22,7 @@ class Customer {
 
         } m_customer;
 
+        bool isManager{false};
         inline static std::vector<customerInfo> m_customersDatabase;
         inline static const char m_fileName[] = "./data/CustomersDatabase.txt";
     
@@ -32,7 +33,7 @@ class Customer {
         virtual ~Customer() = default;  // just incase if we later inherit from this class
         void showCustomerInfo() const;
 
-        bool checkMembership() const;
+        int checkMembership();
 
         void signUp();
 
