@@ -18,10 +18,11 @@ class Customer {
             std::string city{};
             std::string postalCode{};
             int customerNumber{};  // implement this later!
-            bool isMember{false};
-
         } m_customer;
 
+        inline static bool isManager{false};
+        inline static bool isMember{false};
+        inline static bool loginStatus{false};
         inline static std::vector<customerInfo> m_customersDatabase;
         inline static const char m_fileName[] = "./data/CustomersDatabase.txt";
     
@@ -32,7 +33,7 @@ class Customer {
         virtual ~Customer() = default;  // just incase if we later inherit from this class
         void showCustomerInfo() const;
 
-        bool checkMembership() const;
+        int checkMembership();
 
         void signUp();
 

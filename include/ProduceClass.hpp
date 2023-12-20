@@ -58,7 +58,7 @@ class Produce {
         bool viewCart();
 
         // invoke when checking out 
-        void calculateTotal(bool isMember);
+        void calculateTotal(int flag);
 
         // invoke when user choose to place order from main() function
         void placeOrder();

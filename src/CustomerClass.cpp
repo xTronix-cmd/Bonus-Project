@@ -28,8 +28,13 @@ void Customer::showCustomerInfo() const {
     std::cout << "Postal Code: " << m_customer.postalCode << std::endl;
 }
 
-bool Customer::checkMembership() const {
-    return m_customer.isMember;
+int Customer::checkMembership() {
+    if (isManager) {
+        return membershipFlag::MANAGER;
+    } else if (isMember) {
+        return membershipFlag::MEMBER;
+    }
+    return 0;
 }
 
 void Customer::signUp()
@@ -55,7 +60,7 @@ void Customer::signUp()
             m_customersDatabase.push_back(m_customer);
             saveCurrentCustomer();
             std::cout << std::endl;
-            m_customer.isMember = true;
+            isMember = true;
             break; 
         }
     }
@@ -63,35 +68,41 @@ void Customer::signUp()
 
 void Customer::login() {
     std::string fullName;
-
-    std::cout << "Enter your full name: ";
-    std::getline(std::cin, fullName);
-
-    for (const customerInfo &customer : m_customersDatabase) {
-        if (caseInsStringCmp(fullName, customer.fullName)) {
-            size_t firstNameLocation = fullName.find_first_of(" ");
-            // update: (FIXED!)
-            fullName = fullName.substr(0, firstNameLocation);  // extracts the first name
-            // capitalize first letter of name in case it's a lowercase
-            for (size_t index{0}; const char &c : fullName) {
-                if (index == 0) {
-                    fullName.at(0) = std::toupper(c);
-                } else { fullName.at(index) = std::tolower(c);}
-                index++;
-            }
-            std::cout << fmt::format("Hello! Welcome, {}!", fullName) << std::endl;
-            m_customer.isMember = true;
-            break;
-        }
+    if (loginStatus == true) {
+        std::cout << "Sorry, you cannot login when there's already someone logged in\n";
     }
-    if (!m_customer.isMember) {
-        std::cout << std::endl;
-        std::cout << "Sorry, your name is not in our database" << std::endl; 
-        char choice;
-        askForInput(choice, "Become a member for discount? (y/n): ");
+    else {
+        std::cout << "Enter your full name: ";
+        std::getline(std::cin, fullName);
 
-        if (choice == 'y' || choice == 'Y') {
-            signUp();
+        for (const customerInfo &customer : m_customersDatabase) {
+            if (caseInsStringCmp(fullName, customer.fullName)) {
+                size_t firstNameLocation = fullName.find_first_of(" ");
+                // update: (FIXED!)
+                fullName = fullName.substr(0, firstNameLocation);  // extracts the first name
+                // capitalize first letter of name in case it's a lowercase
+                for (size_t index{0}; const char &c : fullName) {
+                    if (index == 0) {
+                        fullName.at(0) = std::toupper(c);
+                    } else { fullName.at(index) = std::tolower(c);}
+                    index++;
+                }
+                std::cout << fmt::format("Hello! Welcome, {}!", fullName) << std::endl;
+                isMember = true;
+                isManager = false;
+                loginStatus = true;
+                break;
+            }
+        }
+        if (!isMember) {
+            std::cout << std::endl;
+            std::cout << "Sorry, your name is not in our database" << std::endl; 
+            char choice;
+            askForInput(choice, "Become a member for discount? (y/n): ");
+
+            if (choice == 'y' || choice == 'Y') {
+                signUp();
+            }
         }
     }
 }
