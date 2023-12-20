@@ -44,21 +44,19 @@ bool Manager::managerLogin() {
     std::cout << "Username: ";
     std::cin >> username;
     for (const auto &[key, value] : m_managerInfo.loginInfo) {
-        if (username == key) {
+        if (caseInsStringCmp(username, key)) {
             for (size_t tries{1}; tries <= 3; tries++){
                 std::cout << "Password: ";
                 password = inputPassword();
-                if (password == value) { break; }
+                if (password == value) { return true; }
                 std::cout << "Incorrect password. Try again\n";
             }
         }
+        else {
+            std::cout << "Sorry, you're not in managers list" << std::endl;
+        }
     }
-    // }
-    //     else {
-    //         std::cout << "Sorry, you're not in managers list" << std::endl;
-    //         return false;
-    //     }
-    return true;
+    return false;
 }
 
 // change existing user password
@@ -168,6 +166,7 @@ bool Manager::deleteMember(const std::string &name) {
     }
     return true;
 }
+
 // void addItemWeight(ProduceByWeight &weight, std::string itemToAdd, double price) {
 //     m_isManager = true;
 //     weight.addItem(itemToAdd, price);
@@ -176,8 +175,25 @@ bool Manager::deleteMember(const std::string &name) {
 // void addItemAmount(ProduceByAmount &amount, std::string itemToAdd, double price) {
 //     m_isManager = true;
 //     amount.addItem(itemToAdd, price);
-
 // }
+
+const std::array<std::string, 3> Manager::processAddItems(const std::string &command) {
+    int wordCounter{1};
+    std::string word;
+    std::array<std::string, 3> commandLine;
+
+    for (const char &c : command) {
+        if (c == ' ') {
+            commandLine.at(wordCounter-1) = word;
+            wordCounter++;
+            word.clear();
+            continue;
+        }
+        word += c; 
+    }
+    commandLine.at(wordCounter-1) = word;
+    return commandLine;
+}
 void Manager::removeItems(ProduceByAmount &amount, ProduceByWeight &weight, const std::string &itemToDel) {
     if (amount.removeItem(itemToDel)) {
         std::cout << fmt::format("Item {} removed from amount", itemToDel) << std::endl;
@@ -186,7 +202,3 @@ void Manager::removeItems(ProduceByAmount &amount, ProduceByWeight &weight, cons
         std::cout << fmt::format("Item {} removed from weight", itemToDel) << std::endl;
     }
 }
-// void removeItemWeight(ProduceByWeight &weight, std::string itemToDel) {
-//     m_isManager = true;
-//     weight.removeItem(itemToDel);
-// }

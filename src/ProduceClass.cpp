@@ -85,7 +85,7 @@ void Produce::resetFirstTimeCall() {
     firstTimeCall = true;
 }
 
-bool Produce::addItem(const std::string &item, double &price) {
+bool Produce::addItem(const std::string &item, const double &price) {
     //
     return false;
 }
@@ -482,7 +482,7 @@ void Produce::transferToMap(std::map<std::string, double> &items, const int &typ
 void ProduceByWeight::loadItems() {
     transferToMap(items, 0);
 }
-bool ProduceByWeight::addItem(const std::string &itemName, double &price) {
+bool ProduceByWeight::addItem(const std::string &itemName, const double &price) {
     std::vector<produce>::iterator produceIt = m_vectorProduce.begin();
     m_produce.produceName = itemName;
     m_produce.produceType = "weight";
@@ -491,6 +491,8 @@ bool ProduceByWeight::addItem(const std::string &itemName, double &price) {
     // insert newly created weight item in the begging of vector
     m_vectorProduce.insert(produceIt, m_produce);  
     m_produceTypeSize.at(0)++;  // might conflict later
+    items[itemName] = price;
+    saveItems();
     return true;
 }
 
@@ -576,12 +578,14 @@ void ProduceByAmount::saveItems() {
 }
 
 // addItem might not have time to fully implement
-bool ProduceByAmount::addItem(const std::string &itemName, double &price) {
+bool ProduceByAmount::addItem(const std::string &itemName, const double &price) {
     m_produce.produceName = itemName;
     m_produce.produceType = "amount";
     m_produce.price = price;
     m_vectorProduce.push_back(m_produce);
     m_produceTypeSize.at(1)++; // might conflict later
+    items[itemName] = price;
+    saveItems();
     return true;
 }
 

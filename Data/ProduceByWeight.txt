@@ -1,6 +1,7 @@
 Broccoli   1.26
 Carrots    2.39
 Celery      2.7
+Langka      1.8
 Onions     2.37
 Peas       3.98
 Potatoes   3.14
