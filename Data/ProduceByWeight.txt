@@ -1,3 +1,4 @@
+Bayabas     0.9
 Broccoli   1.26
 Carrots    2.39
 Celery      2.7

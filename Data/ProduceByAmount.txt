@@ -9,4 +9,3 @@ Mangoes    3.29
 Melon      5.25
 Oranges    4.12
 Prune      3.89
-Santol     1.05
