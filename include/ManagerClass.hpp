@@ -43,7 +43,7 @@ class Manager : public Customer, public ProduceByAmount, public ProduceByWeight 
     void saveManagerInfo(const std::string &filename);
     void loadManagerInfo(const std::string &filename);
     void viewManagerInfo();
-
+    void addMember(Customer &customer);
     bool deleteMember(const std::string &name);
     void removeItems(ProduceByAmount &amount, ProduceByWeight &weight, const std::string &itemToDel);
     const std::array<std::string, 3> processAddItems(const std::string &command);
