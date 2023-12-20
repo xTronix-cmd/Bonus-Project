@@ -140,13 +140,13 @@ void Manager::loadManagerInfo(const std::string &filename) {
     else {
         std::cout << "Could not read file " + filename + "\n";
     }
-    m2_managerInfo.m_name = name;
-    m2_managerInfo.loginInfo[username] = password;
+    m_managerInfo.m_name = name;
+    m_managerInfo.loginInfo[username] = password;
 }
 
 void Manager::viewManagerInfo() {
-    std::cout << "Name: " << m2_managerInfo.m_name << std::endl;
-    for (const auto &[key, value] : m2_managerInfo.loginInfo) {
+    std::cout << "Name: " << m_managerInfo.m_name << std::endl;
+    for (const auto &[key, value] : m_managerInfo.loginInfo) {
         std::cout << "Username: " << key << std::endl;
         std::cout << "Password: " << value << std::endl;
     }
@@ -154,7 +154,6 @@ void Manager::viewManagerInfo() {
 
 void Manager::addMember(Customer &customer) {
     customer.signUp();
-    customer.saveCurrentCustomer();
     std::cout << "Successfully added a member" << std::endl;
 }
 bool Manager::deleteMember(const std::string &name) {

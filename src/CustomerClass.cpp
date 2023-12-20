@@ -181,7 +181,7 @@ bool Customer::saveCurrentCustomer() {
         // when stream object goes out of scope
         // outputFile.close();
         // }
-        std::cout << std::endl << "Successfully saved customer(s) data" << std::endl;
+        // std::cout << std::endl << "Successfully saved customer(s) data" << std::endl;
     }
     else { 
         std::cout << "Failed to save customer(s) data" <<std::endl;

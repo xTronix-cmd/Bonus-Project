@@ -346,9 +346,16 @@ void Produce::calculateTotal(bool isMember) {
         }
     }
 
+    // if (isMember || isManager) {
+    //     double percentDiscount
+    //     if (isMember) {
+    //         percentDiscount = 0.07;
+    //     } else if (isManager) {
+    //         percentDiscount = 0.10;
+    //     }
     if (isMember) {
-        double memberDiscount{0.07};
-        discount = -(subtotal * memberDiscount);
+        double percentDiscount{0.07};
+        discount = -(subtotal * percentDiscount);
         subtotal += discount;
         std::cout << std::endl;
         std::cout << fmt::format("{:<50}{:>16.2f}", "Membership discount 7% off", discount) << std::endl;

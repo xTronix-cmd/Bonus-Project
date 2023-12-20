@@ -38,6 +38,7 @@ class Produce {
         inline static bool firstTimeCall{true};
         inline static std::map<int, int> m_orders;
         bool m_isMember{false};
+        bool m_isManager{false};
     
     public:
 

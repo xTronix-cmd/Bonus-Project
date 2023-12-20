@@ -28,7 +28,6 @@ class Manager : public Customer, public ProduceByAmount, public ProduceByWeight 
     private:
 
     inline static managerInfo m_managerInfo;
-    managerInfo m2_managerInfo;
 
     public:
 
