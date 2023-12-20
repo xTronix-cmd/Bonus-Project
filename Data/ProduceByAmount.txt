@@ -1,29 +1,12 @@
-    Apples    4.35
-    Banana    1.63
-    Mangoes   3.29
-    Avocado   1.97
-    Kiwi      1.67
-    Oranges   4.12
-    Cherries  3.98
-    Lemon     8.99
-    Cranberry 8.18
-    Grapes    7.55
-    Prune     3.89
-    Corn        4.20
-    Melon       5.25
-    Lemon       8.90
-    Cranberry 8.18
-    Grapes    7.55
-    Prune     3.89
-    Corn        4.20
-    Melon       5.25
-    Lemon       8.90
-        Oranges   4.12
-    Cherries  3.98
-    Lemon     8.99
-    Cranberry 8.18
-    Grapes    7.55
-    Prune     3.89
-    Corn        4.20
-    Melon       5.25
-    
+Avocado    1.97
+Cherries   3.98
+Corn        4.2
+Cranberry  8.18
+Grapes     7.55
+Kiwi       1.67
+Lemon      8.99
+Mangoes    3.29
+Melon      5.25
+Oranges    4.12
+Prune      3.89
+Santol     1.05

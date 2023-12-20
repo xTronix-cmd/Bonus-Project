@@ -1,5 +1,6 @@
 #include "ManagerClass.hpp"
 
+
 managerInfo Manager::getManagerInfo() const {
     return m_managerInfo;
 }
@@ -43,21 +44,19 @@ bool Manager::managerLogin() {
     std::cout << "Username: ";
     std::cin >> username;
     for (const auto &[key, value] : m_managerInfo.loginInfo) {
-        if (username == key) {
+        if (caseInsStringCmp(username, key)) {
             for (size_t tries{1}; tries <= 3; tries++){
                 std::cout << "Password: ";
                 password = inputPassword();
-                if (password == value) { break; }
+                if (password == value) { return true; }
                 std::cout << "Incorrect password. Try again\n";
             }
         }
+        else {
+            std::cout << "Sorry, you're not in managers list" << std::endl;
+        }
     }
-    // }
-    //     else {
-    //         std::cout << "Sorry, you're not in managers list" << std::endl;
-    //         return false;
-    //     }
-    return true;
+    return false;
 }
 
 // change existing user password
@@ -152,46 +151,22 @@ void Manager::viewManagerInfo() {
         std::cout << "Password: " << value << std::endl;
     }
 }
-// void createNewManager() {
 
-//     std::string name;
-//     std::string username;
+bool Manager::deleteMember(const std::string &name) {
+    std::string firstName;
+    for (auto itCustomerInfo{m_customersDatabase.begin()}; itCustomerInfo != m_customersDatabase.end();) {
+        size_t firstNameLocation = itCustomerInfo->fullName.find_first_of(" ");
+        firstName = itCustomerInfo->fullName.substr(0, firstNameLocation);
+        if (caseInsStringCmp(name, firstName)) {
+            m_customersDatabase.erase(itCustomerInfo);
+            saveCustomersDatabase();
+            return true;
+        }
+        itCustomerInfo++;
+    }
+    return true;
+}
 
-//     std::cout << "Full Name: ";
-//     std::getline(std::cin, name);
-//     m_managerInfo.m_name = name;
-//     std::cout << "Username: " << std::endl;
-//     std::getline(std::cin, username);
-//     m_managerInfo.loginInfo.at(0) = username;
-    
-//     std::string password;
-//     std::string confirmPass;
-//     while (true) {
-//         std::cout << "Enter password: ";
-//         password = inputPassword();
-//         if (password.empty()) { continue; }
-//         std::cout << "Enter password again: ";
-//         confirmPass = inputPassword();
-//         // if (confirmPass.empty()) { continue; }
-
-//         if (confirmPass == password) {
-//             m_managerInfo.loginInfo.at(1) = password;
-//             break;
-//         }
-//     } 
-// }
-// bool deleteMember(const std::string &name) {
-//     std::string firstName;
-//     for (auto itCustomerInfo{m_customersDatabase.begin()}; itCustomerInfo != m_customersDatabase.begin();) {
-//         size_t firstNameLocation = itCustomerInfo->fullName.find_first_of(" ");
-//         firstName = itCustomerInfo->fullName.substr(0, firstNameLocation);
-//         if (caseInsStringCmp(name, firstName)) {
-//             m_customersDatabase.erase(itCustomerInfo);
-//             return true;
-//         }
-//         itCustomerInfo++;
-//     }
-// }
 // void addItemWeight(ProduceByWeight &weight, std::string itemToAdd, double price) {
 //     m_isManager = true;
 //     weight.addItem(itemToAdd, price);
@@ -200,13 +175,30 @@ void Manager::viewManagerInfo() {
 // void addItemAmount(ProduceByAmount &amount, std::string itemToAdd, double price) {
 //     m_isManager = true;
 //     amount.addItem(itemToAdd, price);
+// }
 
-// }
-// void removeItemAmount(ProduceByAmount &amount, std::string itemToDel) {
-//     m_isManager = true;
-//     amount.removeItem(itemToDel);
-// }
-// void removeItemWeight(ProduceByWeight &weight, std::string itemToDel) {
-//     m_isManager = true;
-//     weight.removeItem(itemToDel);
-// }
+const std::array<std::string, 3> Manager::processAddItems(const std::string &command) {
+    int wordCounter{1};
+    std::string word;
+    std::array<std::string, 3> commandLine;
+
+    for (const char &c : command) {
+        if (c == ' ') {
+            commandLine.at(wordCounter-1) = word;
+            wordCounter++;
+            word.clear();
+            continue;
+        }
+        word += c; 
+    }
+    commandLine.at(wordCounter-1) = word;
+    return commandLine;
+}
+void Manager::removeItems(ProduceByAmount &amount, ProduceByWeight &weight, const std::string &itemToDel) {
+    if (amount.removeItem(itemToDel)) {
+        std::cout << fmt::format("Item {} removed from amount", itemToDel) << std::endl;
+
+    } else if (weight.removeItem(itemToDel)) {
+        std::cout << fmt::format("Item {} removed from weight", itemToDel) << std::endl;
+    }
+}

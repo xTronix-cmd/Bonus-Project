@@ -85,7 +85,7 @@ void Produce::resetFirstTimeCall() {
     firstTimeCall = true;
 }
 
-bool Produce::addItem(const std::string &item, double &price) {
+bool Produce::addItem(const std::string &item, const double &price) {
     //
     return false;
 }
@@ -459,19 +459,30 @@ void Produce::transferToMap(std::map<std::string, double> &weight, std::map<std:
 }
 
 // overloaded for weight and amount object
-void Produce::transferToMap(std::map<std::string, double> &items) { 
+void Produce::transferToMap(std::map<std::string, double> &items, const int &type) { 
     size_t posIndex{1};
 
     for (const produce &p : m_vectorProduce) {
-        if (posIndex <= m_produceTypeSize.at(0)) {
-            items[p.produceName] = p.price;
+        // by weight
+        if (type == 0) {
+            if (posIndex <= m_produceTypeSize.at(0)) {
+                items[p.produceName] = p.price;
+            }
         }
-        else { break; }
+        // by amount
+        if (type == 1) {
+            if (posIndex > m_produceTypeSize.at(0) && posIndex <= m_vectorProduce.size()) {
+                items[p.produceName] = p.price;
+            } 
+        }
         posIndex++;
     }
 }
 
-bool ProduceByWeight::addItem(const std::string &itemName, double &price) {
+void ProduceByWeight::loadItems() {
+    transferToMap(items, 0);
+}
+bool ProduceByWeight::addItem(const std::string &itemName, const double &price) {
     std::vector<produce>::iterator produceIt = m_vectorProduce.begin();
     m_produce.produceName = itemName;
     m_produce.produceType = "weight";
@@ -480,33 +491,31 @@ bool ProduceByWeight::addItem(const std::string &itemName, double &price) {
     // insert newly created weight item in the begging of vector
     m_vectorProduce.insert(produceIt, m_produce);  
     m_produceTypeSize.at(0)++;  // might conflict later
+    items[itemName] = price;
+    saveItems();
     return true;
 }
 
 bool ProduceByWeight::removeItem(const std::string &itemName) {
-    std::vector<produce>::iterator produceIt = m_vectorProduce.begin();
-    size_t index = m_vectorProduce.size() - m_produceTypeSize.at(1);
-    while (produceIt != m_vectorProduce.end()) {
+    std::map<std::string, double>::iterator it{items.begin()};
+    while (it != items.end()) {
         
-        if (produceIt->produceName == itemName) {
+        if (caseInsStringCmp(it->first, itemName)) {
+        // if (it->first == itemName) {
             // do something
-            m_vectorProduce.erase(produceIt);
-            std::cout << fmt::format("Produce {} has been removed from inventory\n", itemName);
+            items.erase(it);
             std::cout << std::endl;
+            saveItems();
+            return true;
         }
-        produceIt++;
-        index++;
+        it++;
     }
-    return true;
-}
-
-std::map<std::string, double> & ProduceByWeight::getItems() {
-    return items;
+    return false;
 }
 
 void ProduceByWeight::showItems() {
 
-    transferToMap(items);
+    transferToMap(items, 0);
     std::cout << "Items charge by weight." << std::endl;
     std::cout << std::endl;
     std::map<std::string, double>::iterator it = items.begin();
@@ -523,13 +532,26 @@ void ProduceByWeight::showItems() {
     std::cout << std::endl;
 }
 
+void ProduceByWeight::saveItems() {
+    std::ofstream outputFile;
+    outputFile.open(m_filePWeight, std::ios::out);
+    if (outputFile.is_open()) {
+        for (const auto &[key, value]: items) {
+            outputFile << fmt::format("{:<10}{:>5}", key, value) << std::endl;
+        }
+    } else { std::cout << fmt::format("file {} couldn't be open\n", m_filePWeight); }
+}
 std::map<std::string, double> & ProduceByAmount::getItems() {
     return items;
 }
 
+void ProduceByAmount::loadItems() {
+    transferToMap(items, 1);
+}
+
 void ProduceByAmount::showItems() {
 
-    transferToMap(items);
+    transferToMap(items, 1);
     std::cout << "Items charge by amount." << std::endl;
     std::cout << std::endl;
     std::map<std::string, double>::iterator it = items.begin();
@@ -545,31 +567,47 @@ void ProduceByAmount::showItems() {
     }
 }
 
+void ProduceByAmount::saveItems() {
+    std::ofstream outputFile;
+    outputFile.open(m_filePAmount, std::ios::out);
+    if (outputFile.is_open()) {
+        for (const auto &[key, value]: items) {
+            outputFile << fmt::format("{:<10}{:>5}", key, value) << std::endl;
+        }
+    } else { std::cout << fmt::format("file {} couldn't be open\n", m_filePAmount); }
+}
+
 // addItem might not have time to fully implement
-bool ProduceByAmount::addItem(const std::string &itemName, double &price) {
+bool ProduceByAmount::addItem(const std::string &itemName, const double &price) {
     m_produce.produceName = itemName;
     m_produce.produceType = "amount";
     m_produce.price = price;
     m_vectorProduce.push_back(m_produce);
     m_produceTypeSize.at(1)++; // might conflict later
+    items[itemName] = price;
+    saveItems();
     return true;
 }
 
 // needed more time to implement this for management
 // when manager logins.. he/she can add/remove inventory
 bool ProduceByAmount::removeItem(const std::string &itemName) {
-    std::vector<produce>::iterator produceIt = m_vectorProduce.begin();
-    size_t index = m_vectorProduce.size() - m_produceTypeSize.at(1);
-    while (produceIt != m_vectorProduce.end()) {
+    // std::vector<produce>::iterator produceIt = m_vectorProduce.begin();
+    // size_t index = m_vectorProduce.size() - m_produceTypeSize.at(1);
+
+    // while (produceIt != m_vectorProduce.end()) {
+    std::map<std::string, double>::iterator it{items.begin()};
+    while (it != items.end()) {
         
-        if (produceIt->produceName == itemName) {
+        if (caseInsStringCmp(it->first, itemName)) {
+        // if (it->first == itemName) {
             // do something
-            m_vectorProduce.erase(produceIt);
-            std::cout << fmt::format("Produce {} has been removed from inventory\n", itemName);
+            items.erase(it);
             std::cout << std::endl;
+            saveItems();
+            return true;
         }
-        produceIt++;
-        index++;
+        it++;
     }
-    return true;
+    return false;
 }

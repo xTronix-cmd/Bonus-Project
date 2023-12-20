@@ -8,10 +8,11 @@
 #include <vector>
 #include <algorithm>
 #include <conio.h>
+#include <array>
 
 #include "CustomerClass.hpp"
-// #include "FreeFunctions.hpp"
 #include "ProduceClass.hpp"
+// #include "FreeFunctions.hpp"
 
 #define BACKSPACE 8
 #define ENTER 13
@@ -23,7 +24,7 @@ struct managerInfo {
     MSS loginInfo;
 };
 
-class Manager : public Customer, public Produce {
+class Manager : public Customer, public ProduceByAmount, public ProduceByWeight {
     private:
 
     inline static managerInfo m_managerInfo;
@@ -42,62 +43,8 @@ class Manager : public Customer, public Produce {
     void saveManagerInfo(const std::string &filename);
     void loadManagerInfo(const std::string &filename);
     void viewManagerInfo();
-    // void createNewManager() {
 
-    //     std::string name;
-    //     std::string username;
-
-    //     std::cout << "Full Name: ";
-    //     std::getline(std::cin, name);
-    //     m_managerInfo.m_name = name;
-    //     std::cout << "Username: " << std::endl;
-    //     std::getline(std::cin, username);
-    //     m_managerInfo.loginInfo.at(0) = username;
-        
-    //     std::string password;
-    //     std::string confirmPass;
-    //     while (true) {
-    //         std::cout << "Enter password: ";
-    //         password = inputPassword();
-    //         if (password.empty()) { continue; }
-    //         std::cout << "Enter password again: ";
-    //         confirmPass = inputPassword();
-    //         // if (confirmPass.empty()) { continue; }
-
-    //         if (confirmPass == password) {
-    //             m_managerInfo.loginInfo.at(1) = password;
-    //             break;
-    //         }
-    //     } 
-    // }
-    // bool deleteMember(const std::string &name) {
-    //     std::string firstName;
-    //     for (auto itCustomerInfo{m_customersDatabase.begin()}; itCustomerInfo != m_customersDatabase.begin();) {
-    //         size_t firstNameLocation = itCustomerInfo->fullName.find_first_of(" ");
-    //         firstName = itCustomerInfo->fullName.substr(0, firstNameLocation);
-    //         if (caseInsStringCmp(name, firstName)) {
-    //             m_customersDatabase.erase(itCustomerInfo);
-    //             return true;
-    //         }
-    //         itCustomerInfo++;
-    //     }
-    // }
-    // void addItemWeight(ProduceByWeight &weight, std::string itemToAdd, double price) {
-    //     m_isManager = true;
-    //     weight.addItem(itemToAdd, price);
-    // }
-
-    // void addItemAmount(ProduceByAmount &amount, std::string itemToAdd, double price) {
-    //     m_isManager = true;
-    //     amount.addItem(itemToAdd, price);
-
-    // }
-    // void removeItemAmount(ProduceByAmount &amount, std::string itemToDel) {
-    //     m_isManager = true;
-    //     amount.removeItem(itemToDel);
-    // }
-    // void removeItemWeight(ProduceByWeight &weight, std::string itemToDel) {
-    //     m_isManager = true;
-    //     weight.removeItem(itemToDel);
-    // }
+    bool deleteMember(const std::string &name);
+    void removeItems(ProduceByAmount &amount, ProduceByWeight &weight, const std::string &itemToDel);
+    const std::array<std::string, 3> processAddItems(const std::string &command);
 };

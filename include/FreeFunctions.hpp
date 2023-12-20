@@ -67,3 +67,8 @@ void askForInput(T &a, T &b, const std::string prompt) {
         break;
     }
 }
+// helper functions for case insensitive string comparison
+inline static bool predInsStringCmp(const char &a, const char &b) {
+    return (std::tolower(a) == std::tolower(b));
+}
+bool caseInsStringCmp(const std::string &s1, const std::string &s2);

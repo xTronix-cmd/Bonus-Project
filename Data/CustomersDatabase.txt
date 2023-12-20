@@ -1,35 +1,15 @@
 
-Full Name:       "Marty Grefiel"           
-Street:          "123 Fake Street"                
-City:            "Wonderland"               
-Postal Code:     "Postal Coder;"                   
-
-Full Name:       "maruchi desu ka"        
-Street:          "yes"                    
-City:            "akjlda"                 
-Postal Code:     "ql"                     
-
-Full Name:       "yes yes"                
-Street:          "yo yo"                  
-City:            "yeha yeah"              
-Postal Code:     "ahuh"                   
+Full Name:       "Marty Grefiel"          
+Street:          "123 Fake Street"        
+City:            "Wonderland"             
+Postal Code:     "Postal Coder;"          
 
 Full Name:       "Craig Scratchley"       
 Street:          "3124"                   
 City:            "1323"                   
 Postal Code:     "45"                     
 
-Full Name:       "ONe"                    
-Street:          "more"                   
-City:            "time"                   
-Postal Code:     "work"                   
-
-Full Name:       "ytram leifhg"           
-Street:          "jkla"                   
-City:            "jk32"                   
-Postal Code:     "2"                      
-
-Full Name:       "ilonah del"             
-Street:          "3241jkl;"               
-City:            "4j32k"                  
-Postal Code:     "2iod"                   
+Full Name:       "Marco Grefiel"          
+Street:          "3719 Crason"            
+City:            "burnaby"                
+Postal Code:     "573k2 j"                

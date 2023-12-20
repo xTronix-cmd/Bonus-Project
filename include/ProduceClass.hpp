@@ -49,7 +49,7 @@ class Produce {
         void loadFiles();
         void resetFirstTimeCall();
 
-        virtual bool addItem(const std::string &item, double &price);
+        virtual bool addItem(const std::string &item, const double &price);
         virtual bool removeItem(const std::string &item);
         // show all of the items
         virtual void showItems();
@@ -69,12 +69,12 @@ class Produce {
         void transferToMap(std::map<std::string, double> &weight, std::map<std::string, double> &amount);
 
         // overloaded for weight and amount object
-        void transferToMap(std::map<std::string, double> &items);
+        void transferToMap(std::map<std::string, double> &items, const int &type);
 };
 
 class ProduceByWeight : public Produce {
     private:
-        std::map<std::string, double> items;
+        inline static std::map<std::string, double> items;
         double discountRate = 0.05;
         const std::string m_filePWeight{"./data/ProduceByWeight.txt"};
 
@@ -84,17 +84,19 @@ class ProduceByWeight : public Produce {
         }
         virtual ~ProduceByWeight() = default;
 
-        bool addItem(const std::string &itemName, double &price) override; 
+        bool addItem(const std::string &itemName, const double &price) override; 
         bool removeItem(const std::string &itemName) override;
 
         std::map<std::string, double> &getItems();
 
+        void loadItems();
         void showItems() override;
+        void saveItems();
 };
 
 class ProduceByAmount : public Produce {
     private:
-        std::map<std::string, double> items;
+        inline static std::map<std::string, double> items;
         double discountRate = 0.10;
         const std::string m_filePAmount{"./data/ProduceByAmount.txt"};
 
@@ -104,11 +106,12 @@ class ProduceByAmount : public Produce {
         virtual ~ProduceByAmount() = default;
 
         std::map<std::string, double> &getItems();
-
+        void loadItems();
         void showItems() override;
+        void saveItems();
 
         // addItem might not have time to fully implement
-        bool addItem(const std::string &itemName, double &price) override;
+        bool addItem(const std::string &itemName, const double &price) override;
 
         // needed more time to implement this for management
         // when manager logins.. he/she can add/remove inventory
