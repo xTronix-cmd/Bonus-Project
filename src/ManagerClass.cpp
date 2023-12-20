@@ -40,23 +40,28 @@ std::string Manager::inputPassword() {
 bool Manager::managerLogin() {
     std::string username, password;
     char choice;
-
-    std::cout << "Username: ";
-    std::cin >> username;
-    for (const auto &[key, value] : m_managerInfo.loginInfo) {
-        if (caseInsStringCmp(username, key)) {
-            for (size_t tries{1}; tries <= 3; tries++){
-                std::cout << "Password: ";
-                password = inputPassword();
-                if (password == value) { 
-                    loginStatus = true;
-                    isManager = true;
-                    return true; }
-                std::cout << "Incorrect password. Try again\n";
+    if (loginStatus == true) {
+        std::cout << "Sorry, you cannot login when there's already someone logged in\n";
+    }
+    else {
+        std::cout << "Username: ";
+        std::cin >> username;
+        for (const auto &[key, value] : m_managerInfo.loginInfo) {
+            if (caseInsStringCmp(username, key)) {
+                for (size_t tries{1}; tries <= 3; tries++){
+                    std::cout << "Password: ";
+                    password = inputPassword();
+                    if (password == value) { 
+                        loginStatus = true;
+                        isManager = true;
+                        isMember = false;
+                        return true; }
+                    std::cout << "Incorrect password. Try again\n";
+                }
             }
-        }
-        else {
-            std::cout << "Sorry, you're not in managers list" << std::endl;
+            else {
+                std::cout << "Sorry, you're not in managers list" << std::endl;
+            }
         }
     }
     return false;

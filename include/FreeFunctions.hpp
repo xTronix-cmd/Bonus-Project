@@ -73,4 +73,4 @@ inline static bool predInsStringCmp(const char &a, const char &b) {
 }
 bool caseInsStringCmp(const std::string &s1, const std::string &s2);
 
-enum membershipFlag { MEMBER, MANAGER };
+enum membershipFlag { MEMBER = 1, MANAGER };

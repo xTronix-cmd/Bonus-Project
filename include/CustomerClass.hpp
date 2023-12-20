@@ -20,9 +20,9 @@ class Customer {
             int customerNumber{};  // implement this later!
         } m_customer;
 
-        bool isManager{false};
-        bool isMember{false};
-        bool loginStatus{false};
+        inline static bool isManager{false};
+        inline static bool isMember{false};
+        inline static bool loginStatus{false};
         inline static std::vector<customerInfo> m_customersDatabase;
         inline static const char m_fileName[] = "./data/CustomersDatabase.txt";
     

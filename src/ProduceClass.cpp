@@ -347,22 +347,25 @@ void Produce::calculateTotal(int flag) {
 
     if (flag != 0) {
         double percentDiscount;
+        std::string mDiscount;
         if (flag == membershipFlag::MEMBER) {
             percentDiscount = 7.0;
+            mDiscount = "Member";
         } else if (flag == membershipFlag::MANAGER) {
             percentDiscount = 10.0;
+            mDiscount = "Manager";
         }
         discount = -(subtotal * (percentDiscount/100));
         subtotal += discount;
         std::cout << std::endl;
-        std::cout << fmt::format("{:<50}{}% off{:>16.2f}", "Membership discount", percentDiscount, discount) << std::endl;
+        std::cout << fmt::format("{:<16}{}% off{:^25}{:>18.2f}", mDiscount + " discount ", percentDiscount, "", discount);
+        std::cout << std::endl;
     }
     else { std::cout << fmt::format("{:<50}{:>16}", "No member discount", "") << std::endl; }
 
     std::cout << fmt::format("{:^50}{:->16}", "", "") << std::endl; 
     std::cout << std::fixed;
     std::cout << std::setprecision(2);
-    // std::string strSubtotal = "$" + std::to_string(subtotal);
     std::cout << fmt::format("Sub Total{:^49}", "");
     std::cout << fmt::format("{:<2}", "") << "$" << subtotal << std::endl;
     std::cout << std::endl;

@@ -30,10 +30,8 @@ void Customer::showCustomerInfo() const {
 
 int Customer::checkMembership() {
     if (isManager) {
-        isMember = false;
         return membershipFlag::MANAGER;
     } else if (isMember) {
-        isManager = false;
         return membershipFlag::MEMBER;
     }
     return 0;
@@ -71,7 +69,7 @@ void Customer::signUp()
 void Customer::login() {
     std::string fullName;
     if (loginStatus == true) {
-        std::cout << "Sorry, you cannot when there's already someone logged in\n";
+        std::cout << "Sorry, you cannot login when there's already someone logged in\n";
     }
     else {
         std::cout << "Enter your full name: ";
@@ -91,6 +89,7 @@ void Customer::login() {
                 }
                 std::cout << fmt::format("Hello! Welcome, {}!", fullName) << std::endl;
                 isMember = true;
+                isManager = false;
                 loginStatus = true;
                 break;
             }
