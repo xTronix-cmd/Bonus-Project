@@ -37,9 +37,19 @@ std::string Manager::inputPassword() {
     return password;
 }
 
+bool Manager::managerLogout() {
+    if (loginStatus == 1) {
+        std::map<std::string, std::string>::iterator it{m_managerInfo.loginInfo.begin()};
+        std::cout << fmt::format("Manager {} logged out\n", it->first);
+        loginStatus = false;
+        isManager = false;
+        return 0;
+    }
+    return 1;
+}
+
 bool Manager::managerLogin() {
     std::string username, password;
-    char choice;
     if (loginStatus == true) {
         std::cout << "Sorry, you cannot login when there's already someone logged in\n";
     }

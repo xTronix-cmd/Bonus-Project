@@ -61,11 +61,19 @@ void Customer::signUp()
             saveCurrentCustomer();
             std::cout << std::endl;
             isMember = true;
+            loginStatus = true;
             break; 
         }
     }
 }
 
+void Customer::logout() {
+    if (loginStatus == true) {
+        std::cout << fmt::format("Member {} logged out\n", m_customer.fullName);
+        isMember = false;
+        loginStatus = false;
+    }
+}
 void Customer::login() {
     std::string fullName;
     if (loginStatus == true) {
@@ -91,6 +99,7 @@ void Customer::login() {
                 isMember = true;
                 isManager = false;
                 loginStatus = true;
+                m_customer.fullName = fullName;
                 break;
             }
         }
@@ -102,6 +111,10 @@ void Customer::login() {
 
             if (choice == 'y' || choice == 'Y') {
                 signUp();
+            }
+            else {
+                loginStatus = false;
+                isMember = false;
             }
         }
     }

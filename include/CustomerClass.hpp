@@ -40,6 +40,7 @@ class Customer {
         std::vector<customerInfo> getCustomerDatabase() const;
 
         void login();
+        void logout();
         void viewCustomersDatabase() const;
         bool loadCustomersDatabase();
         bool saveCustomersDatabase();
