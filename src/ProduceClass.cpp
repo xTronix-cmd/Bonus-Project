@@ -387,7 +387,7 @@ void Produce::calculateTotal(int flag) {
 }
 
 // placing the order and printing the receipt
-void Produce::placeOrder() {
+void Produce::placeOrder(int flag) {
     std::cout << std::endl << std::endl;
     std::cout << fmt::format("{:^63}", "Marty's") << std::endl;
     std::cout << fmt::format("{:^65}", "Produce Market Project") << std::endl;
@@ -396,7 +396,7 @@ void Produce::placeOrder() {
     std::cout << fmt::format("{:^65}", "-----------") << std::endl;
     std::cout << std::endl;
 
-    calculateTotal(m_isMember);
+    calculateTotal(flag);
 
     std::cout << std::endl;
     std::cout << fmt::format("{:^65}", "Thank You!!") << std::endl;
