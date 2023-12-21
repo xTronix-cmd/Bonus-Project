@@ -110,7 +110,7 @@ int Menu::checkout(Produce &produce, Customer &customer) {
         choice = this->viewSubMenu("Place Order");
         switch (choice) {
             case 1: // place order
-                    produce.placeOrder();
+                    produce.placeOrder(customer.checkMembership());
                     choice = this->viewSubMenu3();
                     if (choice == 1) {
                         return -1;  // back to main page

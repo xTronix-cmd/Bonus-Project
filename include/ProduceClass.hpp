@@ -61,7 +61,7 @@ class Produce {
         void calculateTotal(int flag);
 
         // invoke when user choose to place order from main() function
-        void placeOrder();
+        void placeOrder(int flag);
 
         bool takeOrder();
 
