@@ -18,8 +18,3 @@ Full Name:       "ace"
 Street:          "labunos"                
 City:            "vancouver"              
 Postal Code:     "54jfk3"                 
-
-Full Name:       "test"                   
-Street:          "mic"                    
-City:            "one"                    
-Postal Code:     "two"                    
