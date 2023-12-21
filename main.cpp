@@ -35,8 +35,7 @@ int main() {
 
     customer.loadCustomersDatabase();
 
-    manager.setManagerInfo("Marty", "Tigz", "Locker1");
-
+    manager.loadManagerInfo("data/man.dat");
     produce.loadFiles();
     objProduceWeight.loadItems();
     objProduceAmount.loadItems();
