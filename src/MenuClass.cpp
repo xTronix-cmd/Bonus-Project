@@ -6,8 +6,9 @@ int Menu::welcome() { // modify this!
     std::cout << fmt::format("1) Shop") << std::endl;
     std::cout << fmt::format("2) Sign Up for membership discount") << std::endl;
     std::cout << fmt::format("3) Login") << std::endl;
+    std::cout << fmt::format("4) Logout") << std::endl;
     std::cout << std::endl;
-    std::cout << fmt::format("4) Quit") << std::endl;
+    std::cout << fmt::format("5) Quit") << std::endl;
     std::cout << std::endl;
     askForInput<int>(choice, ": ");
     return choice;

@@ -37,6 +37,18 @@ std::string Manager::inputPassword() {
     return password;
 }
 
+bool Manager::managerLogout() {
+    if (loginStatus == 1) {
+        std::map<std::string, std::string>::iterator it{m_managerInfo.loginInfo.begin()};
+        std::cout << fmt::format("User {} logged out\n", it->first);
+        m_managerInfo.m_name.clear();
+        m_managerInfo.loginInfo.clear();    
+        loginStatus = 0;
+        return 0;
+    }
+    return 1;
+}
+
 bool Manager::managerLogin() {
     std::string username, password;
     char choice;

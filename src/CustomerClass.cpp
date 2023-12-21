@@ -103,6 +103,10 @@ void Customer::login() {
             if (choice == 'y' || choice == 'Y') {
                 signUp();
             }
+            else {
+                loginStatus = false;
+                isMember = false;
+            }
         }
     }
 }

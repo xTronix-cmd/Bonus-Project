@@ -37,6 +37,7 @@ class Manager : public Customer, public ProduceByAmount, public ProduceByWeight 
     // process password input
     std::string inputPassword();
     bool managerLogin();
+    bool managerLogout();
     // change existing user password
     void changePassword();
     void saveManagerInfo(const std::string &filename);

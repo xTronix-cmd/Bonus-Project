@@ -64,7 +64,10 @@ int main() {
             case 3: // login
                     customer.login();
                     continue; // after login back to main page
-            case 4: // quit
+            case 4: // logout
+                    manager.managerLogout();
+                    continue;
+            case 5: // quit
                     leaveMarket = true;
                     continue;
             case 7: if (manager.managerLogin()) {
